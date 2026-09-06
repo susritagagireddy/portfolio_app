@@ -9,36 +9,32 @@ class ProjectsPage extends StatelessWidget {
       'tag': 'Medical AI • Deep Learning',
       'description':
           'Extended the TransUNet architecture with a pneumonia classifier for lung CT scan analysis. '
-          'Combines transformer-based encoders with U-Net skip connections to achieve precise '
-          'segmentation of lung regions, aiding radiologists in diagnosis.',
-      'icon': '🫁',
+              'Combines transformer-based encoders with U-Net skip connections to achieve precise '
+              'segmentation of lung regions, aiding radiologists in diagnosis.',
     },
     {
       'title': 'ACDC Cardiac MRI Study',
       'tag': 'Computer Vision • Research',
       'description':
           'Comparative study of medical image segmentation models on the ACDC cardiac MRI '
-          'benchmark dataset. Evaluated multiple architectures for accurate segmentation of '
-          'heart structures including left/right ventricles and myocardium.',
-      'icon': '🫀',
+              'benchmark dataset. Evaluated multiple architectures for accurate segmentation of '
+              'heart structures including left/right ventricles and myocardium.',
     },
     {
       'title': 'FinMind AI',
       'tag': 'Full-Stack • AI Finance',
       'description':
           'Full-stack AI-powered financial coaching application with a custom agent engine. '
-          'Provides personalised budgeting insights, expense categorisation, and investment '
-          'guidance through a conversational AI interface backed by Firebase.',
-      'icon': '💡',
+              'Provides personalised budgeting insights, expense categorisation, and investment '
+              'guidance through a conversational AI interface backed by Firebase.',
     },
     {
       'title': 'Bluebook Exam Platform',
       'tag': 'Firebase • EdTech',
       'description':
           'A Firebase-backed online examination platform with anti-exit and anti-tab-switch '
-          'enforcement for academic integrity. Supports live proctoring flags, timed tests, '
-          'and automated result calculation with instant feedback.',
-      'icon': '📖',
+              'enforcement for academic integrity. Supports live proctoring flags, timed tests, '
+              'and automated result calculation with instant feedback.',
     },
   ];
 
@@ -107,7 +103,10 @@ class ProjectsPage extends StatelessWidget {
                   ),
                   child: const Text(
                     'Back to Home',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
@@ -124,6 +123,14 @@ class ProjectsPage extends StatelessWidget {
 class _ProjectCard extends StatelessWidget {
   final Map<String, String> project;
   const _ProjectCard({required this.project});
+
+  IconData _getIcon(String title) {
+    if (title.contains('Lung')) return Icons.air;
+    if (title.contains('Cardiac')) return Icons.favorite;
+    if (title.contains('Fin')) return Icons.insights;
+    if (title.contains('Bluebook')) return Icons.school;
+    return Icons.code;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,8 +150,23 @@ class _ProjectCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(project['icon']!, style: const TextStyle(fontSize: 28)),
+                // Icon container
+                Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF5B5FEF).withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    _getIcon(project['title']!),
+                    color: const Color(0xFF5B5FEF),
+                    size: 24,
+                  ),
+                ),
+
                 const SizedBox(width: 14),
+
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,9 +183,7 @@ class _ProjectCard extends StatelessWidget {
                       const SizedBox(height: 6),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 4,
-                        ),
+                            horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: const Color(0xFF5B5FEF).withOpacity(0.15),
                           borderRadius: BorderRadius.circular(6),
