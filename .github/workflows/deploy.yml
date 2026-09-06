@@ -1,33 +1,32 @@
-# Susrita — Flutter Portfolio App
+name: Build and Deploy Flutter Web
 
-A responsive Flutter portfolio application built for the UI Design–Flutter Lab Internal (SEP 2026), CR Rao AIMSCS.
+on:
+  push:
+    branches:
+      - main
 
-## Pages
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-| Page | Route | Description |
-|------|-------|-------------|
-| Home | `/` | CircleAvatar, name, designation, navigation buttons |
-| About Me | `/about` | Bio, skills, education, experience |
-| Projects | `/projects` | 4 real AI/ML projects in Card widgets |
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-## Tech Stack
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.0'
+          channel: 'stable'
 
-- Flutter 3.x + Dart
-- Material 3 Design
-- Named routes (`Navigator.pushNamed` / `Navigator.pop`)
-- `MediaQuery` for responsive layouts
-- GitHub Actions → GitHub Pages for CI/CD
+      - name: Install dependencies
+        run: flutter pub get
 
-## Run Locally
+      - name: Build Flutter web
+        run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
 
-```bash
-flutter pub get
-flutter run -d chrome      # web
-flutter run                # mobile emulator
-```
-
-## Build for Web
-
-```bash
-flutter build web --release
-```
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
