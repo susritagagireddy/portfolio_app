@@ -1,0 +1,33 @@
+# Susrita — Flutter Portfolio App
+
+A responsive Flutter portfolio application built for the UI Design–Flutter Lab Internal (SEP 2026), CR Rao AIMSCS.
+
+## Pages
+
+| Page | Route | Description |
+|------|-------|-------------|
+| Home | `/` | CircleAvatar, name, designation, navigation buttons |
+| About Me | `/about` | Bio, skills, education, experience |
+| Projects | `/projects` | 4 real AI/ML projects in Card widgets |
+
+## Tech Stack
+
+- Flutter 3.x + Dart
+- Material 3 Design
+- Named routes (`Navigator.pushNamed` / `Navigator.pop`)
+- `MediaQuery` for responsive layouts
+- GitHub Actions → GitHub Pages for CI/CD
+
+## Run Locally
+
+```bash
+flutter pub get
+flutter run -d chrome      # web
+flutter run                # mobile emulator
+```
+
+## Build for Web
+
+```bash
+flutter build web --release
+```
